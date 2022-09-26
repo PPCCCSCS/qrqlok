@@ -35,10 +35,10 @@ clock = pygame.time.Clock()
 CLOCK_R  = int(WIDTH / 2) # clock radius
 HOUR_R   = int(CLOCK_R * 7 / 10) # hour hand length
 MINUTE_R = int(CLOCK_R * 9 / 10) # minute hand length
-SECOND_R = CLOCK_R # second hand length
+SECOND_R = int(CLOCK_R * 95 / 100) # second hand length
 HOUR_STROKE = BOX*3
 MINUTE_STROKE = BOX*2
-SECOND_STROKE = BOX*1
+SECOND_STROKE = BOX
 
 HOURS_IN_CLOCK = 12
 MINUTES_IN_HOUR = 60
@@ -57,11 +57,23 @@ def circle_point(center, radius, theta):
     return (center[0] + radius * math.cos(theta),
             center[1] + radius * math.sin(theta))
 
+## ht Rabbid76 @ https://stackoverflow.com/questions/70051590/draw-lines-with-round-edges-in-pygame
+def draw_line_round_corners_polygon(surf, p1, p2, c, w):
+    p1v = pygame.math.Vector2(p1)
+    p2v = pygame.math.Vector2(p2)
+    lv = (p2v - p1v).normalize()
+    lnv = pygame.math.Vector2(-lv.y, lv.x) * w // 2
+    pts = [p1v + lnv, p2v + lnv, p2v - lnv, p1v - lnv]
+    pygame.draw.polygon(surf, c, pts)
+    pygame.draw.circle(surf, c, p1, round(w / 2))
+    pygame.draw.circle(surf, c, p2, round(w / 2))
+
 def line_at_angle(screen, center, radius, theta, color, width):
     """Draws a line from a center towards an angle. The angle is given in
        radians."""
     point = circle_point(center, radius, theta)
-    pygame.draw.line(screen, color, center, point, width)
+    #pygame.draw.line(screen, color, center, point, width)
+    draw_line_round_corners_polygon(screen,center,point,color,width)
 
 def get_angle(unit, total):
     """Calculates the angle, in radians, corresponding to a portion of the clock
