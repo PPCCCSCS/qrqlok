@@ -9,3 +9,7 @@ Power Supply:
   
 Documentation:
   https://learn.sparkfun.com/tutorials/rgb-panel-hookup-guide/all
+  
+Transparency: https://riptutorial.com/pygame/example/23788/transparency
+
+
