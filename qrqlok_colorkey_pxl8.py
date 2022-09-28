@@ -12,6 +12,8 @@ BLACK   = (0,0,0)
 RED     = (255,0,0)
 GREEN   = (0,192,0)
 LIME    = (0,255,0)
+FOREST  = (34,139,34)
+DOLIVE  = (85,107,47)
 BLUE    = (0,0,255)
 GREY    = (128,128,128)
 WHITE   = (255,255,255)
@@ -19,7 +21,7 @@ FUCHSIA = (255,0,255)
 
 BG = WHITE
 
-BOX = 8
+BOX = 12
 EDGE  = 51
 BORDER = 1
 SLEEP = 1
@@ -27,9 +29,10 @@ SLEEP = 1
 WIDTH = EDGE * BOX
 HEIGHT = EDGE * BOX
 
-screen = pygame.display.set_mode((WIDTH,HEIGHT))
+screen = pygame.display.set_mode((WIDTH,HEIGHT),pygame.SRCALPHA)
 hands = screen.copy()
 hands.set_colorkey(FUCHSIA)
+hands.set_alpha(192)
 hands = pygame.transform.scale(hands,(EDGE,EDGE))
 
 pygame.display.set_caption('QRQLOK')
@@ -118,8 +121,8 @@ while running:
     qr.add_data(timeFormatted)
     qr.make(fit=True)
 
-    if int(timeNow.hour) == 10 and int(timeNow.minute <= 15):
-        FILL = LIME
+    if int(timeNow.hour) == 10 and int(timeNow.minute < 15):
+        FILL = DOLIVE
     else:
         FILL = BLACK
     
@@ -139,9 +142,9 @@ while running:
     second_theta = get_angle(timeNow.second, SECONDS_IN_MINUTE)
 
     for (radius, theta, color, stroke) in (
-        (SECOND_R, second_theta, BLUE, SECOND_STROKE),
+        (SECOND_R, second_theta, RED, SECOND_STROKE),
         (MINUTE_R, minute_theta, GREEN, MINUTE_STROKE),
-        (HOUR_R, hour_theta, RED, HOUR_STROKE),
+        (HOUR_R, hour_theta, BLUE, HOUR_STROKE),
         ):
         ...
         line_at_angle(hands,CENTER,radius,theta,color,stroke)
