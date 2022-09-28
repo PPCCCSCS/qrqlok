@@ -45,13 +45,13 @@ clock = pygame.time.Clock()
 CLOCK_R  = int(EDGE / 2) # clock radius
 HOUR_R   = int(CLOCK_R * 7 / 10) # hour hand length
 MINUTE_R = int(CLOCK_R * 85 / 100) # minute hand length
-SECOND_R = int(CLOCK_R * 95 / 100) # second hand length
+SECOND_R = int(CLOCK_R * 100 / 100) # second hand length
 #HOUR_STROKE = BOX*3
 #MINUTE_STROKE = BOX*2
 #SECOND_STROKE = BOX
-HOUR_STROKE = 4
-MINUTE_STROKE = 3
-SECOND_STROKE = 2
+HOUR_STROKE = 3
+MINUTE_STROKE = 2
+SECOND_STROKE = 1
 
 HOURS_IN_CLOCK = 12
 MINUTES_IN_HOUR = 60
@@ -109,6 +109,7 @@ while running:
     
     timeNow = datetime.now()
     timeFormatted = timeNow.strftime("%H:%M:%S")
+    #timeShort = timeNow.strftime("%H:%M") ##Only update once per minute
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -118,6 +119,7 @@ while running:
                        box_size=BOX,
                        error_correction=qrcode.constants.ERROR_CORRECT_H,
                        border=BORDER)
+    #qr.add_data(timeShort) ##Only update once per minute
     qr.add_data(timeFormatted)
     qr.make(fit=True)
 
