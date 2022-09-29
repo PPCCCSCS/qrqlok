@@ -10,6 +10,12 @@ Power Supply:
 Documentation:
   https://learn.sparkfun.com/tutorials/rgb-panel-hookup-guide/all
   
+  RPi GPIO:
+  https://github.com/hzeller/rpi-rgb-led-matrix
+  
+  Wiring:
+  https://github.com/hzeller/rpi-rgb-led-matrix/blob/master/wiring.md
+  
 Transparency: https://riptutorial.com/pygame/example/23788/transparency
 
 
